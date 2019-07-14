@@ -9,11 +9,14 @@ async function bootstrap() {
     .setTitle('Quest manage')
     .setDescription('The quest manage API description')
     .setVersion('1.0')
+    .setBasePath('api/v1')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3000);
+  app.enableCors();
+  app.setGlobalPrefix('api/v1');
+  await app.listen(8080);
 }
 
 bootstrap();
