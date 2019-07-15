@@ -3,7 +3,7 @@ import { SerialportModule } from '../infrastructure/serialport';
 import { ConfigModule, ConfigService } from 'nestjs-config';
 import { EventEmitter } from 'events';
 import * as path from 'path';
-import { Room2Gateway } from './room2.gateway';
+import { Room3Gateway } from './room3.gateway';
 
 @Module({
   imports: [
@@ -18,8 +18,8 @@ import { Room2Gateway } from './room2.gateway';
     //   inject: [ConfigService],
     // }),
   ],
-  providers: [Room2Gateway],
+  providers: [Room3Gateway],
 })
-export class Room2Module {
+export class Room3Module {
 
 }

@@ -17,7 +17,7 @@ export class AppGateway implements OnModuleInit {
 
   onModuleInit(): any {
     this.emitter.on('boxIsOpened', async () => this.onBoxIsOpened());
-    this.emitter.on('lightOn', async () => this.onLightOn());
+    this.emitter.on('safeIsOpened', async () => this.onLightOn());
   }
 
   @SubscribeMessage('reset')
@@ -52,6 +52,6 @@ export class AppGateway implements OnModuleInit {
   }
 
   onLightOn() {
-    this.server.emit('lightOn');
+    this.server.emit('safeIsOpened');
   }
 }

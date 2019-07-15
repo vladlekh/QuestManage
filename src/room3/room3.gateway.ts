@@ -3,18 +3,18 @@ import { Client } from 'socket.io';
 import { InternalServerErrorException, OnModuleInit } from '@nestjs/common';
 import { InjectEventEmitter } from 'nest-emitter';
 import { SerialportService } from '../infrastructure/serialport';
-import { Room1EventEmitter } from './room1.events';
+import { Room3EventEmitter } from './room3.events';
 import { ConfigService } from 'nestjs-config';
 
-@WebSocketGateway(1081, { namespace: 'room1' })
-export class Room1Gateway implements OnModuleInit {
+@WebSocketGateway(1081, { namespace: 'room3' })
+export class Room3Gateway implements OnModuleInit {
   port: SerialportService;
 
   constructor(
     private readonly configService: ConfigService,
-    @InjectEventEmitter() private readonly emitter: Room1EventEmitter) {
+    @InjectEventEmitter() private readonly emitter: Room3EventEmitter) {
     this.port = new SerialportService(emitter, {
-      port: configService.get('room1.port'),
+      port: configService.get('room3.port'),
       baudRate: 9600,
       delimiter: '\n',
     });
@@ -24,28 +24,19 @@ export class Room1Gateway implements OnModuleInit {
   server;
 
   onModuleInit(): any {
-    this.emitter.on('boxIsOpened', async () => this.onBoxIsOpened());
+    this.emitter.on('lightOn', async () => this.onCoffinIsOpened());
   }
 
-  @SubscribeMessage('reset')
-  async onReset(client: Client) {
+  @SubscribeMessage('light.switch')
+  async onCoffinOpen(client: Client) {
     try {
-      await this.port.write('reset');
+      await this.port.write('switchLight');
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
   }
 
-  @SubscribeMessage('box.open')
-  async onBoxOpen(client: Client) {
-    try {
-      await this.port.write('openBox');
-    } catch (e) {
-      throw new InternalServerErrorException(e);
-    }
-  }
-
-  onBoxIsOpened() {
-    this.server.emit('boxIsOpened');
+  onCoffinIsOpened() {
+    this.server.emit('lightOn');
   }
 }

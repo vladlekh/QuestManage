@@ -6,7 +6,7 @@ import Readline = SerialPort.parsers.Readline;
 import { ISerialPortOptions } from './interfaces';
 import { EventEmitter } from 'events';
 
-@Injectable()
+// @Injectable()
 export class SerialportService implements OnModuleInit {
   private readonly port: SerialPort;
   private readonly parser: Readline;
@@ -18,15 +18,16 @@ export class SerialportService implements OnModuleInit {
     this.port = new SerialPort(options.port, {
       baudRate: options.baudRate,
     });
-    // this.parser = new Readline({ delimiter: options.delimiter });
-    // this.port.pipe(this.parser);
+    this.parser = new Readline({ delimiter: options.delimiter });
+    this.port.pipe(this.parser);
+    this.parser.on('data', msg => {
+      console.log(msg);
+      this.emitter.emit(msg);
+    });
   }
 
   onModuleInit(): any {
-    // this.parser.on('data', msg => {
-    //   console.log(msg);
-    //   this.emitter.emit(msg);
-    // });
+
     this.port.on('data', data => console.log(data));
   }
 
