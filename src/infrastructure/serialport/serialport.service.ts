@@ -1,39 +1,56 @@
-import { Injectable, OnModuleInit, Optional } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as SerialPort from 'serialport';
-import { InjectEventEmitter } from 'nest-emitter';
-import { SerialPortEventEmitter } from './serialport.event';
+import { Port } from '../../types/port';
+import { IPortOptions } from '../../interfaces';
+import { EmitterService } from '../emitter';
 import Readline = SerialPort.parsers.Readline;
-import { ISerialPortOptions } from './interfaces';
-import { EventEmitter } from 'events';
 
-// @Injectable()
+@Injectable()
 export class SerialportService implements OnModuleInit {
-  private readonly port: SerialPort;
+  readonly ports = new Map<string, Port>();
   private readonly parser: Readline;
 
   constructor(
-    @InjectEventEmitter() private readonly emitter: EventEmitter,
-    options: ISerialPortOptions,
+    options: IPortOptions[],
+    protected readonly emitterService: EmitterService,
   ) {
-    this.port = new SerialPort(options.port, {
-      baudRate: options.baudRate,
-    });
-    this.parser = new Readline({ delimiter: options.delimiter });
-    this.port.pipe(this.parser);
-    this.parser.on('data', msg => {
-      console.log(msg);
-      this.emitter.emit(msg);
+    this.parser = new Readline({ delimiter: '\n' });
+    options.forEach(option => {
+      const port = new SerialPort(option.path, {
+        baudRate: 9600,
+      });
+      this.ports.set(option.name, {
+        ...option,
+        port,
+      });
+      port.pipe(this.parser);
     });
   }
 
   onModuleInit(): any {
-
-    this.port.on('data', data => console.log(data));
+    this.parser.on('data', data => {
+      console.log(data);
+      this.emitterService.emit(data);
+    });
   }
 
   write(message: string) {
+    let existingPort: SerialPort;
+    let cmd: string;
+
+    this.ports.forEach(({ actions, port }) => {
+      if (actions[message]) {
+        existingPort = port;
+        cmd = actions[message];
+      }
+    });
+
+    if (!existingPort) {
+      return Promise.resolve();
+    }
+    
     return new Promise((resolve, reject) => {
-      this.port.write(Buffer.from(message), (err, length) => {
+      existingPort.write(Buffer.from(cmd), (err, length) => {
         if (!err) {
           return resolve(length);
         }

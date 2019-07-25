@@ -1,0 +1,22 @@
+{
+  "room1": {
+    "ports": [
+      {
+        "path": "/dev/ttyUSB0",
+        "actions": {
+          "box.open": "openBox"
+        },
+        "replies": ["boxIsOpened"],
+        "name": "box-port"
+      },
+      {
+        "path": "/dev/ttyUSB1",
+        "actions": {
+          "coffin.open": "openCoffin"
+        },
+        "replies": ["coffinIsOpened"],
+        "name": "coffin-port"
+      }
+    ]
+  }
+}
