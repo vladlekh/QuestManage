@@ -10,7 +10,7 @@ export class PortConfigService {
     this.config = JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
   }
 
-  get(option: string) {
-    return dot.pick(option, this.config);
+  get(option?: string) {
+    return option ? dot.pick(option, this.config) : this.config;
   }
 }

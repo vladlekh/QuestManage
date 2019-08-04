@@ -6,20 +6,20 @@ import { PortConfigService } from '../infrastructure/port-config';
 import { IPortOptions } from '../interfaces';
 import { EmitterService } from '../infrastructure/emitter';
 
-@WebSocketGateway(1081, { namespace: 'room1' })
-export class Room1Gateway extends SerialportService implements OnGatewayInit, OnModuleInit {
+@WebSocketGateway(1081, { namespace: 'room2' })
+export class Room2Gateway extends SerialportService implements OnGatewayInit, OnModuleInit {
   constructor(
     private readonly portConfigService: PortConfigService,
     emitterService: EmitterService,
   ) {
-    super(portConfigService.get('room1').ports, emitterService);
+    super(portConfigService.get('room2').ports, emitterService);
   }
 
   @WebSocketServer()
   server: Server;
 
   onModuleInit(): any {
-    const ports = this.portConfigService.get('room1').ports as IPortOptions[];
+    const ports = this.portConfigService.get('room2').ports as IPortOptions[];
     ports.forEach(({ actions }) => {
       this.emitterService.subscribe(actions, this.onPortMsg);
     });
@@ -28,7 +28,7 @@ export class Room1Gateway extends SerialportService implements OnGatewayInit, On
 
   afterInit(server: Namespace): any {
     server.on('connection', (socket => {
-      const ports = this.portConfigService.get('room1').ports as IPortOptions[];
+      const ports = this.portConfigService.get('room2').ports as IPortOptions[];
       ports.forEach(({ actions }) => {
         actions.forEach(({ socketEvent, cmd }) => {
           socket.on(socketEvent, () => this.write(cmd));

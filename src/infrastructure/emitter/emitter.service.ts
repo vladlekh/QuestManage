@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EventEmitter } from 'events';
+import { IAction } from '../../interfaces';
 
 @Injectable()
 export class EmitterService {
@@ -13,9 +14,9 @@ export class EmitterService {
     this.emitter.emit(msg);
   }
 
-  subscribe(replies: string[], callback: (msg: string) => void) {
-    replies.forEach(reply => {
-      this.emitter.on(reply, () => callback(reply));
+  subscribe(actions: IAction[], callback: (msg: string) => void) {
+    actions.forEach(({ socketReply }) => {
+      this.emitter.on(socketReply, () => callback(socketReply));
     });
   }
 }

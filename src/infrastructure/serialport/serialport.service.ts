@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as SerialPort from 'serialport';
 import { Port } from '../../types/port';
-import { IPortOptions } from '../../interfaces';
+import { IAction, IPortOptions } from '../../interfaces';
 import { EmitterService } from '../emitter';
 import Readline = SerialPort.parsers.Readline;
 
@@ -34,14 +34,15 @@ export class SerialportService implements OnModuleInit {
     });
   }
 
-  write(message: string) {
+  write(command: string) {
     let existingPort: SerialPort;
-    let cmd: string;
+    // let cmd: string;
 
-    this.ports.forEach(({ actions, port }) => {
-      if (actions[message]) {
+    this.ports.forEach(({ actions, port }: Port) => {
+      const actionIndex = actions.findIndex(({ cmd }) => command === cmd);
+      if (actionIndex !== -1) {
         existingPort = port;
-        cmd = actions[message];
+        // cmd = actions[actionIndex].cmd;
       }
     });
 
@@ -50,7 +51,7 @@ export class SerialportService implements OnModuleInit {
     }
     
     return new Promise((resolve, reject) => {
-      existingPort.write(Buffer.from(cmd), (err, length) => {
+      existingPort.write(Buffer.from(command), (err, length) => {
         if (!err) {
           return resolve(length);
         }
