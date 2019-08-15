@@ -1,4 +1,4 @@
 import { IPortOptions } from '../interfaces/port-options.interface';
-import * as SerialPort from 'serialport';
+import { Port } from '../infrastructure/serialport/port';
 
-export type Port = IPortOptions & { port: SerialPort};
+export type PortType = IPortOptions & { port: Port};

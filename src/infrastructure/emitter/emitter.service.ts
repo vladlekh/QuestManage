@@ -10,13 +10,17 @@ export class EmitterService {
     this.emitter = new EventEmitter();
   }
 
-  emit(msg) {
-    this.emitter.emit(msg);
+  emit(msg, data?: any) {
+    this.emitter.emit(msg, data);
   }
 
   subscribe(actions: IAction[], callback: (msg: string) => void) {
     actions.forEach(({ socketReply }) => {
       this.emitter.on(socketReply, () => callback(socketReply));
     });
+  }
+
+  on(msg: string, callback: (data?: any) => any) {
+    this.emitter.on(msg, callback);
   }
 }

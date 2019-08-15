@@ -1,62 +1,87 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import * as SerialPort from 'serialport';
-import { Port } from '../../types/port';
-import { IAction, IPortOptions } from '../../interfaces';
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { PortType } from '../../types/port';
+import { IPortOptions } from '../../interfaces';
 import { EmitterService } from '../emitter';
+import { Port } from './port';
+import * as SerialPort from 'serialport';
 import Readline = SerialPort.parsers.Readline;
 
 @Injectable()
 export class SerialportService implements OnModuleInit {
-  readonly ports = new Map<string, Port>();
-  private readonly parser: Readline;
+  readonly ports = new Map<string, PortType>();
+  readonly parser: Readline;
 
   constructor(
     options: IPortOptions[],
-    protected readonly emitterService: EmitterService,
+    readonly emitterService: EmitterService,
   ) {
     this.parser = new Readline({ delimiter: '\n' });
+
     options.forEach(option => {
-      const port = new SerialPort(option.path, {
+      const port = new Port(option.path, {
         baudRate: 9600,
+        autoReconnect: true,
       });
       this.ports.set(option.name, {
         ...option,
         port,
       });
+      port.on('data', (data) => console.log('DATA', data));
       port.pipe(this.parser);
     });
   }
 
   onModuleInit(): any {
+    // const emitDisconnected = (e: string, path: string, name: string) => {
+    //   this.emitterService.emit('port_disconnected', { message: e, path, name });
+    // };
+    //
+    // const emitConnected = (path: string, name: string) => {
+    //   this.emitterService.emit('port_connected', { path, name });
+    // };
+
     this.parser.on('data', data => {
-      console.log(data);
+      console.log('MSG', data);
       this.emitterService.emit(data);
     });
+    // this.ports.forEach(({ port, path, name }) => {
+    //   port.on('open', () => emitConnected(path, name));
+    //   port.on('close', () => emitDisconnected('DISCONNECTED', path, name));
+    //   port.on('disconnected', (e) => emitDisconnected(e, path, name));
+    // });
   }
 
-  write(command: string) {
-    let existingPort: SerialPort;
-    // let cmd: string;
+  // onModuleDestroy(): any {
+  //   this.ports.forEach(({ port }) => port.disconnect());
+  // }
 
-    this.ports.forEach(({ actions, port }: Port) => {
+  write(command: string) {
+    let existingPort: Port;
+
+    this.ports.forEach(({ actions, port }: PortType) => {
       const actionIndex = actions.findIndex(({ cmd }) => command === cmd);
       if (actionIndex !== -1) {
         existingPort = port;
-        // cmd = actions[actionIndex].cmd;
       }
     });
 
     if (!existingPort) {
       return Promise.resolve();
     }
-    
-    return new Promise((resolve, reject) => {
-      existingPort.write(Buffer.from(command), (err, length) => {
-        if (!err) {
-          return resolve(length);
-        }
-        reject(err);
-      });
-    });
+
+    return existingPort.writeCmd(command);
+  }
+
+  globalWrite(command: string) {
+    return Promise.all(
+      this.portValuesToArray().map(({ port }) => port.writeCmd(command)),
+    );
+  }
+
+  portValuesToArray(): PortType[] {
+    const ports = [];
+    this.ports.forEach(value => ports.push(value));
+    console.log(ports);
+    return ports;
   }
 }

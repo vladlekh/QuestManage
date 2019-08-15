@@ -5,6 +5,7 @@ import { EmitterModule } from './infrastructure/emitter';
 import { AppController } from './app.controller';
 import { Room1Module } from './room1';
 import { Room2Module } from './room2';
+import { LightModule } from './light';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Room2Module } from './room2';
     PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.json')),
     Room1Module,
     Room2Module,
+    LightModule,
   ],
   controllers: [AppController],
 })
