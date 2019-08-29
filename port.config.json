@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "/dev/ttyUSB1",
+        "path": "/dev/ttyUSB5",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "/dev/ttyUSB2",
+        "path": "/dev/ttyUSB6",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -70,5 +70,45 @@
     "name": "room2",
     "socketNamespace": "room2",
     "displayName": "2 комната"
+  },
+  "room3": {
+    "ports": [
+      {
+        "path": "/dev/ttyUSB1",
+        "actions": [
+          {
+            "socketEvent": "coffin.open",
+            "socketReply": "coffinIsOpened",
+            "cmd": "openCoffin",
+            "name": "coffin",
+            "displayName": "Гроб"
+          },
+          {
+            "socketEvent": "chest.open",
+            "socketReply": "chestIsOpened",
+            "cmd": "openChest",
+            "name": "chest",
+            "displayName": "Сендук"
+          }
+        ],
+        "name": "coffinPort"
+      },
+      {
+        "path": "/dev/ttyUSB2",
+        "actions": [
+          {
+            "socketEvent": "coffin.slide",
+            "socketReply": "coffinSlided",
+            "cmd": "coffinSlide",
+            "name": "coffin-slide",
+            "displayName": "Гроб движение"
+          }
+        ],
+        "name": "coffin2Port"
+      }
+    ],
+    "name": "room3",
+    "socketNamespace": "room3",
+    "displayName": "3 комната"
   }
 }

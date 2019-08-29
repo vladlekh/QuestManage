@@ -47,7 +47,6 @@ export class Port extends SerialPort {
   // }
 
   writeCmd(cmd: string) {
-    console.log('CMD', cmd);
     return new Promise(((resolve, reject) => {
       this.write(Buffer.from(cmd), (err, length) => {
         if (!err) {

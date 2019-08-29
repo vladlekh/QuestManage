@@ -20,13 +20,10 @@ export function SerialGateway(roomName) {
     server: Server;
 
     onModuleInit(): any {
-      const ports = this.room.ports;
-      ports.forEach(({ actions }) => {
-        this.emitterService.subscribe(actions, this.onPortMsg);
+      this.parser.on('data', data => {
+        console.log('REPLY ==>', data);
+        this.handlePortMsg(data);
       });
-      this.emitterService.on('port_disconnected', (data) => this.server.emit('port_disconnected', data));
-      this.emitterService.on('port_connected', (data) => this.server.emit('port_connected', data));
-      this.emitterService.on('light', () => this.onPortMsg('light'));
       super.onModuleInit();
     }
 
@@ -35,7 +32,10 @@ export function SerialGateway(roomName) {
         const ports = this.room.ports;
         ports.forEach(({ actions }) => {
           actions.forEach(({ socketEvent, cmd }) => {
-            socket.on(socketEvent, () => this.write(cmd));
+            socket.on(socketEvent, async () => {
+              console.log('CMD ==>', cmd);
+              this.write(cmd);
+            });
           });
         });
         socket.on('set.persons', this.handleSetPersons);
@@ -43,12 +43,12 @@ export function SerialGateway(roomName) {
       }));
     }
 
-    onPortMsg = (msg: string) => {
+    handlePortMsg = (msg: string) => {
       this.server.emit(msg);
     };
 
     handleSetPersons = async (persons: number) => {
-      console.log('SET PERSONS', persons);
+      console.log('SET PERSONS ==>', persons);
       await this.globalWrite(`setPersons=${persons}`);
     };
 

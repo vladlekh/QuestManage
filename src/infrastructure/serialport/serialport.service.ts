@@ -40,10 +40,10 @@ export class SerialportService implements OnModuleInit {
     //   this.emitterService.emit('port_connected', { path, name });
     // };
 
-    this.parser.on('data', data => {
-      console.log('MSG', data);
-      this.emitterService.emit(data);
-    });
+    // this.parser.on('data', data => {
+    //   console.log('MSG', data);
+    //   this.emitterService.emit(data);
+    // });
     // this.ports.forEach(({ port, path, name }) => {
     //   port.on('open', () => emitConnected(path, name));
     //   port.on('close', () => emitDisconnected('DISCONNECTED', path, name));
@@ -81,7 +81,6 @@ export class SerialportService implements OnModuleInit {
   portValuesToArray(): PortType[] {
     const ports = [];
     this.ports.forEach(value => ports.push(value));
-    console.log(ports);
     return ports;
   }
 }
