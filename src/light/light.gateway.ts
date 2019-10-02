@@ -14,7 +14,7 @@ export class LightGateway {
 
   constructor() {
     this.parser = new Readline({ delimiter: '\n' });
-    this.port = new Port('/dev/ttyUSB0', {
+    this.port = new Port('/dev/ttyUSB4', {
       baudRate: 9600,
       autoReconnect: true,
     });

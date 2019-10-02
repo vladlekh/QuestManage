@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { PortConfigService } from './infrastructure/port-config';
+import { IPort } from './interfaces';
 
 @Controller()
 export class AppController {
@@ -10,4 +11,9 @@ export class AppController {
   getConfig() {
     return this.portConfigService.get();
   }
-}
+
+  @Get('ports')
+  getPortsList(): IPort[] {
+    return this.portConfigService.getPortsList();
+  }
+} 

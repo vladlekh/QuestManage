@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "/dev/ttyUSB5",
+        "path": "/dev/ttyUSB1",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "/dev/ttyUSB6",
+        "path": "/dev/ttyUSB2",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -25,11 +25,11 @@
             "displayName": "Дверь"
           },
           {
-            "socketEvent": "magnet.off",
-            "socketReply": "magnetIsOffed",
-            "cmd": "offMagnet",
-            "name": "magnet",
-            "displayName": "Магнит 1"
+            "socketEvent": "hook.screw",
+            "socketReply": "hooksIsScrewed",
+            "cmd": "screwHooks",
+            "name": "hooks",
+            "displayName": "Крючки"
           }
         ],
         "name": "doorPort"
@@ -57,13 +57,35 @@
             "cmd": "openPicture",
             "name": "picture",
             "displayName": "Картина"
+          },
+          {
+            "socketEvent": "monitor.switch",
+            "socketReply": "monitorOn",
+            "cmd": "switchMonitor",
+            "name": "monitor",
+            "displayName": "Монитор"
           }
         ],
         "name": "standPort"
       },
       {
         "path": "/dev/ttyUSB4",
-        "actions": [],
+        "actions": [
+          {
+            "socketEvent": "door.open",
+            "socketReply": "secondDoorOpened",
+            "cmd": "openDoor",
+            "name": "door2",
+            "displayName": "Дверь 2"
+          },
+          {
+            "socketEvent": "signaling.stop",
+            "socketReply": "signalingIsStoped",
+            "cmd": "stopSignaling",
+            "name": "signaling",
+            "displayName": "Сигнализация"
+          }
+        ],
         "name": "door2Port"
       }
     ],
@@ -74,15 +96,8 @@
   "room3": {
     "ports": [
       {
-        "path": "/dev/ttyUSB1",
+        "path": "/dev/ttyUSB5",
         "actions": [
-          {
-            "socketEvent": "coffin.open",
-            "socketReply": "coffinIsOpened",
-            "cmd": "openCoffin",
-            "name": "coffin",
-            "displayName": "Гроб"
-          },
           {
             "socketEvent": "chest.open",
             "socketReply": "chestIsOpened",
@@ -94,8 +109,15 @@
         "name": "coffinPort"
       },
       {
-        "path": "/dev/ttyUSB2",
+        "path": "/dev/ttyUSB6",
         "actions": [
+          {
+            "socketEvent": "coffin.open",
+            "socketReply": "coffinIsOpened",
+            "cmd": "openCoffin",
+            "name": "coffin",
+            "displayName": "Гроб открытие"
+          },
           {
             "socketEvent": "coffin.slide",
             "socketReply": "coffinSlided",
@@ -110,5 +132,72 @@
     "name": "room3",
     "socketNamespace": "room3",
     "displayName": "3 комната"
+  },
+  "room4": {
+    "ports": [
+      {
+        "path": "/dev/ttyUSB8",
+        "actions": [
+          {
+            "socketEvent": "safe.open",
+            "socketReply": "safeIsOpened",
+            "cmd": "openSafe",
+            "name": "safe",
+            "displayName": "Сейф"
+          },
+          {
+            "socketEvent": "game.open",
+            "socketReply": "safeIsRaised",
+            "cmd": "game",
+            "name": "game",
+            "displayName": "Игра"
+          },
+          {
+            "socketEvent": "safe.down",
+            "socketReply": "safeIsDropped",
+            "cmd": "safeDown",
+            "name": "safeDown",
+            "displayName": "Сейф опускание"
+          }
+        ],
+        "name": "safePort"
+      },
+      {
+        "path": "/dev/ttyUSB7",
+        "actions": [
+          {
+            "socketEvent": "rack.open",
+            "socketReply": "rackIsOpened",
+            "cmd": "openRack",
+            "name": "rack",
+            "displayName": "Полка"
+          }
+        ],
+        "name": "rack"
+      },
+      {
+        "path": "/dev/ttyUSB9",
+        "actions": [
+          {
+            "socketEvent": "cupboard.open",
+            "socketReply": "cupboardIsOpened",
+            "cmd": "openCupboard",
+            "name": "cupboard",
+            "displayName": "Шкаф"
+          },
+          {
+            "socketEvent": "door.open",
+            "socketReply": "fourthDoorIsOpened",
+            "cmd": "openDoor",
+            "name": "door4",
+            "displayName": "Дверь 4"
+          }
+        ],
+        "name": "cupboard"
+      }
+    ],
+    "name": "room4",
+    "socketNamespace": "room4",
+    "displayName": "4 комната"
   }
 }

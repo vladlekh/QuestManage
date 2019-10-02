@@ -14,7 +14,7 @@ import { Room3Module } from './room3';
     PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.json')),
     Room1Module,
     Room2Module,
-    Room3Module,
+    // Room3Module,
     LightModule,
   ],
   controllers: [AppController],

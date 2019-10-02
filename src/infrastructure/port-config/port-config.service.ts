@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as dot from 'dot-object';
+import { IConfig, IPort } from '../../interfaces';
+import { reduce } from 'lodash';
 
 @Injectable()
 export class PortConfigService {
@@ -10,7 +12,14 @@ export class PortConfigService {
     this.config = JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
   }
 
-  get(option?: string) {
+  getPortsList(): IPort[] {
+    const config = this.get();
+    return reduce(config, (acc, value, key) => {
+      return [...acc, ...value.ports.map(({ path, name }) => ({ path, name }))];
+    }, []);
+  }
+
+  get(option?: string): IConfig {
     return option ? dot.pick(option, this.config) : this.config;
   }
 }

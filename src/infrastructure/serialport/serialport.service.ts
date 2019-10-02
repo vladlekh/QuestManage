@@ -1,6 +1,6 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { PortType } from '../../types/port';
-import { IPortOptions } from '../../interfaces';
+import { PortWithConfig } from '../../types/port-with-config';
+import { IConfigPort, IPortOptions } from '../../interfaces';
 import { EmitterService } from '../emitter';
 import { Port } from './port';
 import * as SerialPort from 'serialport';
@@ -8,14 +8,14 @@ import Readline = SerialPort.parsers.Readline;
 
 @Injectable()
 export class SerialportService implements OnModuleInit {
-  readonly ports = new Map<string, PortType>();
-  readonly parser: Readline;
+  readonly ports = new Map<string, PortWithConfig>();
+  // readonly parser: Readline;
 
   constructor(
-    options: IPortOptions[],
+    options: IConfigPort[],
     readonly emitterService: EmitterService,
   ) {
-    this.parser = new Readline({ delimiter: '\n' });
+    // this.parser = new Readline({ delimiter: '\n' });
 
     options.forEach(option => {
       const port = new Port(option.path, {
@@ -26,8 +26,8 @@ export class SerialportService implements OnModuleInit {
         ...option,
         port,
       });
-      port.on('data', (data) => console.log('DATA', data));
-      port.pipe(this.parser);
+      // port.on('data', (data) => console.log('DATA', data));
+      // port.pipe(this.parser);
     });
   }
 
@@ -58,7 +58,7 @@ export class SerialportService implements OnModuleInit {
   write(command: string) {
     let existingPort: Port;
 
-    this.ports.forEach(({ actions, port }: PortType) => {
+    this.ports.forEach(({ actions, port }: PortWithConfig) => {
       const actionIndex = actions.findIndex(({ cmd }) => command === cmd);
       if (actionIndex !== -1) {
         existingPort = port;
@@ -78,7 +78,7 @@ export class SerialportService implements OnModuleInit {
     );
   }
 
-  portValuesToArray(): PortType[] {
+  portValuesToArray(): PortWithConfig[] {
     const ports = [];
     this.ports.forEach(value => ports.push(value));
     return ports;

@@ -2,8 +2,10 @@ import { OnModuleInit } from '@nestjs/common';
 import { PortConfigService } from '../port-config';
 import { EmitterService } from '../emitter';
 import { OnGatewayInit } from '@nestjs/websockets';
-import { Client, Namespace, Server } from 'socket.io';
+import { Namespace, Server } from 'socket.io';
 import { SerialportService } from '../serialport';
+import { Parser } from '../../enums';
+import { IParserReply } from '../../interfaces';
 
 export function SerialGateway(roomName) {
   return class Gateway extends SerialportService implements OnGatewayInit, OnModuleInit {
@@ -20,17 +22,15 @@ export function SerialGateway(roomName) {
     server: Server;
 
     onModuleInit(): any {
-      this.parser.on('data', data => {
-        console.log('REPLY ==>', data);
-        this.handlePortMsg(data);
+      this.portValuesToArray().forEach(({ port }) => {
+        port.parser.on(Parser.reply, (data) => this.handlePortMsg(data));
       });
       super.onModuleInit();
     }
 
     afterInit(server: Namespace): any {
       server.on('connection', (socket => {
-        const ports = this.room.ports;
-        ports.forEach(({ actions }) => {
+        this.room.ports.forEach(({ actions }) => {
           actions.forEach(({ socketEvent, cmd }) => {
             socket.on(socketEvent, async () => {
               console.log('CMD ==>', cmd);
@@ -43,8 +43,9 @@ export function SerialGateway(roomName) {
       }));
     }
 
-    handlePortMsg = (msg: string) => {
-      this.server.emit(msg);
+    handlePortMsg = ({ message, path }: IParserReply) => {
+      console.log('REPLY ==>', message);
+      this.server.emit(message, { path });
     };
 
     handleSetPersons = async (persons: number) => {

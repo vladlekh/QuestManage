@@ -1,12 +1,18 @@
 import * as SerialPort from 'serialport';
 import { IPortOpenOptions } from '../../interfaces';
 import Timeout = NodeJS.Timeout;
+import { ReadlineParser } from '../parser';
 
 export class Port extends SerialPort {
   private interval: Timeout;
+  readonly path: string;
+  readonly parser: ReadlineParser;
 
   constructor(path: string, options?: IPortOpenOptions) {
     super(path, { ...options });
+    // this.path = path;
+    this.parser = new ReadlineParser({ delimiter: '\n', path });
+    this.pipe(this.parser);
 
     // if (options.autoReconnect) {
     //   this.autoConnect();
