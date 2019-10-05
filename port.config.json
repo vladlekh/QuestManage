@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "/dev/ttyUSB1",
+        "path": "/dev/ttyUSB0",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "/dev/ttyUSB2",
+        "path": "/dev/ttyUSB1",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -42,7 +42,7 @@
   "room2": {
     "ports": [
       {
-        "path": "/dev/ttyUSB3",
+        "path": "/dev/ttyUSB2",
         "actions": [
           {
             "socketEvent": "stand.open",
@@ -69,11 +69,11 @@
         "name": "standPort"
       },
       {
-        "path": "/dev/ttyUSB4",
+        "path": "/dev/ttyUSB3",
         "actions": [
           {
-            "socketEvent": "door.open",
-            "socketReply": "secondDoorOpened",
+            "socketEvent": "door2.open",
+            "socketReply": "secondDoorIsOpened",
             "cmd": "openDoor",
             "name": "door2",
             "displayName": "Дверь 2"
@@ -96,7 +96,7 @@
   "room3": {
     "ports": [
       {
-        "path": "/dev/ttyUSB5",
+        "path": "/dev/ttyUSB4",
         "actions": [
           {
             "socketEvent": "chest.open",
@@ -106,10 +106,10 @@
             "displayName": "Сендук"
           }
         ],
-        "name": "coffinPort"
+        "name": "chest"
       },
       {
-        "path": "/dev/ttyUSB6",
+        "path": "/dev/ttyUSB5",
         "actions": [
           {
             "socketEvent": "coffin.open",
@@ -126,7 +126,7 @@
             "displayName": "Гроб движение"
           }
         ],
-        "name": "coffin2Port"
+        "name": "coffin"
       }
     ],
     "name": "room3",
@@ -136,7 +136,7 @@
   "room4": {
     "ports": [
       {
-        "path": "/dev/ttyUSB8",
+        "path": "/dev/ttyUSB6",
         "actions": [
           {
             "socketEvent": "safe.open",
@@ -176,7 +176,7 @@
         "name": "rack"
       },
       {
-        "path": "/dev/ttyUSB9",
+        "path": "/dev/ttyUSB8",
         "actions": [
           {
             "socketEvent": "cupboard.open",
@@ -199,5 +199,66 @@
     "name": "room4",
     "socketNamespace": "room4",
     "displayName": "4 комната"
+  },
+  "room5": {
+    "ports": [
+      {
+        "path": "/dev/ttyUSB9",
+        "actions": [
+          {
+            "socketEvent": "lamp.switch",
+            "socketReply": "lampOn",
+            "cmd": "switchLamp",
+            "name": "lamp",
+            "displayName": "УФ лампа"
+          },
+          {
+            "socketEvent": "chair.open",
+            "socketReply": "chairIsOpened",
+            "cmd": "openChair",
+            "name": "chair",
+            "displayName": "Стул"
+          },
+          {
+            "socketEvent": "rfid.access",
+            "socketReply": "rfidAccessed",
+            "cmd": "rfidAccess",
+            "name": "rfidAccess",
+            "displayName": "РФИД"
+          }
+        ],
+        "name": "table"
+      },
+      {
+        "path": "/dev/ttyUSB10",
+        "actions": [
+          {
+            "socketEvent": "rfid.accessed",
+            "socketReply": "",
+            "cmd": "rfidAccessed",
+            "name": "rfidCmd",
+            "displayName": "РФИД2"
+          },
+          {
+            "socketEvent": "water.flow",
+            "socketReply": "waterFlowed",
+            "cmd": "waterFlow",
+            "name": "water",
+            "displayName": "Стенд вода"
+          },
+          {
+            "socketEvent": "button.access",
+            "socketReply": "buttonAccessed",
+            "cmd": "accessToButton",
+            "name": "button",
+            "displayName": "Доступ к кнопке"
+          }
+        ],
+        "name": "pinpad"
+      }
+    ],
+    "name": "room5",
+    "socketNamespace": "room5",
+    "displayName": "5 комната"
   }
 }

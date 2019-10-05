@@ -6,7 +6,9 @@ import { AppController } from './app.controller';
 import { Room1Module } from './room1';
 import { Room2Module } from './room2';
 import { LightModule } from './light';
+import { Room5Module } from './room5';
 import { Room3Module } from './room3';
+import { Room4Module } from './room4';
 
 @Module({
   imports: [
@@ -14,7 +16,9 @@ import { Room3Module } from './room3';
     PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.json')),
     Room1Module,
     Room2Module,
-    // Room3Module,
+    Room3Module,
+    Room4Module,
+    Room5Module,
     LightModule,
   ],
   controllers: [AppController],
