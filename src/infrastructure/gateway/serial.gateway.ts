@@ -41,6 +41,18 @@ export function SerialGateway(roomName) {
         socket.on('set.persons', this.handleSetPersons);
         socket.on('reset', this.handleReset);
       }));
+      const emitDisconnected = (e: string, path: string, name: string) => {
+        this.server.emit('port_disconnected', { message: e, path, name });
+      };
+
+      const emitConnected = (path: string, name: string) => {
+        this.server.emit('port_connected', { path, name });
+      };
+      this.ports.forEach(({ port, path, name }) => {
+        port.on('open', () => emitConnected(path, name));
+        port.on('close', () => emitDisconnected('DISCONNECTED', path, name));
+        port.on('disconnected', (e) => emitDisconnected(e, path, name));
+      });
     }
 
     handlePortMsg = ({ message, path }: IParserReply) => {
