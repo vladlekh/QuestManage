@@ -9,6 +9,8 @@ import { LightModule } from './light';
 import { Room5Module } from './room5';
 import { Room3Module } from './room3';
 import { Room4Module } from './room4';
+import { MuseumModule } from './museum';
+import { SoundModule } from './sound';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { Room4Module } from './room4';
     Room4Module,
     Room5Module,
     LightModule,
+    MuseumModule,
+    SoundModule,
   ],
   controllers: [AppController],
 })

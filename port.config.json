@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "/dev/ttyUSB0",
+        "path": "COM4",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "/dev/ttyUSB1",
+        "path": "COM5",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -42,7 +42,7 @@
   "room2": {
     "ports": [
       {
-        "path": "/dev/ttyUSB2",
+        "path": "COM6",
         "actions": [
           {
             "socketEvent": "stand.open",
@@ -69,7 +69,7 @@
         "name": "standPort"
       },
       {
-        "path": "/dev/ttyUSB3",
+        "path": "COM7",
         "actions": [
           {
             "socketEvent": "door2.open",
@@ -82,8 +82,15 @@
             "socketEvent": "signaling.stop",
             "socketReply": "signalingIsStoped",
             "cmd": "stopSignaling",
+            "name": "stopSignaling",
+            "displayName": "Остановить сигнализацию"
+          },
+          {
+            "socketEvent": "signaling",
+            "socketReply": "signalingIsOn",
+            "cmd": "signaling",
             "name": "signaling",
-            "displayName": "Сигнализация"
+            "displayName": "Сигнализацию"
           }
         ],
         "name": "door2Port"
@@ -96,7 +103,7 @@
   "room3": {
     "ports": [
       {
-        "path": "/dev/ttyUSB4",
+        "path": "COM8",
         "actions": [
           {
             "socketEvent": "chest.open",
@@ -109,7 +116,7 @@
         "name": "chest"
       },
       {
-        "path": "/dev/ttyUSB5",
+        "path": "COM9",
         "actions": [
           {
             "socketEvent": "coffin.open",
@@ -136,7 +143,7 @@
   "room4": {
     "ports": [
       {
-        "path": "/dev/ttyUSB6",
+        "path": "COM11",
         "actions": [
           {
             "socketEvent": "safe.open",
@@ -163,7 +170,7 @@
         "name": "safePort"
       },
       {
-        "path": "/dev/ttyUSB7",
+        "path": "COM10",
         "actions": [
           {
             "socketEvent": "rack.open",
@@ -176,7 +183,7 @@
         "name": "rack"
       },
       {
-        "path": "/dev/ttyUSB8",
+        "path": "COM12",
         "actions": [
           {
             "socketEvent": "cupboard.open",
@@ -203,7 +210,7 @@
   "room5": {
     "ports": [
       {
-        "path": "/dev/ttyUSB9",
+        "path": "COM13",
         "actions": [
           {
             "socketEvent": "lamp.switch",
@@ -230,7 +237,7 @@
         "name": "table"
       },
       {
-        "path": "/dev/ttyUSB10",
+        "path": "COM14",
         "actions": [
           {
             "socketEvent": "rfid.accessed",

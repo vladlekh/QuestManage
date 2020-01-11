@@ -28,6 +28,7 @@
     "@nestjs/websockets": "^6.4.0",
     "@types/lodash": "^4.14.136",
     "@types/serialport": "^7.0.4",
+    "cache-manager": "^2.10.1",
     "dot-object": "^1.7.1",
     "lodash": "^4.17.14",
     "nestjs-config": "^1.4.2",
