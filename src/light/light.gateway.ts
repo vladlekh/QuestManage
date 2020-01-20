@@ -1,5 +1,5 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { Port } from '../infrastructure/serialport/port';
 import * as SerialPort from 'serialport';
 import Readline = SerialPort.parsers.Readline;
@@ -22,9 +22,17 @@ export class LightGateway {
   }
 
   @SubscribeMessage('turn.light')
-  async handleTurnLight() {
-    console.log('TURN LIGHT');
-    await this.port.writeCmd('startQuest');
+  async handleTurnLight(client: Socket, data: string) {
+    if (data === 'ON') {
+      await this.port.writeCmd('turnLightOn');
+    } else if (data === 'OFF') {
+      await this.port.writeCmd('turnLightOff');
+    }
+  }
+
+  @SubscribeMessage('start.light')
+  async handleStartLight() {
+    await this.port.writeCmd('turnLight');
   }
 
   @SubscribeMessage('switch.light')
