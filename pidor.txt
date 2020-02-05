@@ -1,0 +1,14 @@
+Установка зависимостей
+`npm i`
+
+Запуск сервера
+`npm run start:dev`
+
+Файл конфига
+`port.config.json`
+
+Управление светом
+`light.gateway.ts`
+
+Музей
+`museum.controller.ts`

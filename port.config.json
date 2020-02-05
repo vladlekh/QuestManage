@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "COM4",
+        "path": "COM14",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "COM5",
+        "path": "COM10",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -23,13 +23,6 @@
             "cmd": "openDoor",
             "name": "door",
             "displayName": "Дверь"
-          },
-          {
-            "socketEvent": "hook.screw",
-            "socketReply": "hooksIsScrewed",
-            "cmd": "screwHooks",
-            "name": "hooks",
-            "displayName": "Крючки"
           }
         ],
         "name": "doorPort"
@@ -42,7 +35,7 @@
   "room2": {
     "ports": [
       {
-        "path": "COM6",
+        "path": "COM9",
         "actions": [
           {
             "socketEvent": "stand.open",
@@ -64,12 +57,19 @@
             "cmd": "switchMonitor",
             "name": "monitor",
             "displayName": "Монитор"
+          },
+          {
+            "socketEvent": "signaling.light",
+            "socketReply": "signalingOn",
+            "cmd": "signaling",
+            "name": "signaling",
+            "displayName": "Включение сигнализации"
           }
         ],
         "name": "standPort"
       },
       {
-        "path": "COM7",
+        "path": "COM11",
         "actions": [
           {
             "socketEvent": "door2.open",
@@ -77,20 +77,6 @@
             "cmd": "openDoor",
             "name": "door2",
             "displayName": "Дверь 2"
-          },
-          {
-            "socketEvent": "signaling.stop",
-            "socketReply": "signalingIsStoped",
-            "cmd": "stopSignaling",
-            "name": "stopSignaling",
-            "displayName": "Остановить сигнализацию"
-          },
-          {
-            "socketEvent": "signaling",
-            "socketReply": "signalingIsOn",
-            "cmd": "signaling",
-            "name": "signaling",
-            "displayName": "Сигнализацию"
           }
         ],
         "name": "door2Port"
@@ -103,7 +89,7 @@
   "room3": {
     "ports": [
       {
-        "path": "COM8",
+        "path": "COM15",
         "actions": [
           {
             "socketEvent": "chest.open",
@@ -111,26 +97,40 @@
             "cmd": "openChest",
             "name": "chest",
             "displayName": "Сендук"
+          },
+          {
+            "socketEvent": "water.flow",
+            "socketReply": "waterFlowed",
+            "cmd": "waterFlow",
+            "name": "waterflow",
+            "displayName": "Включение воды"
+          },
+          {
+            "socketEvent": "water.stop",
+            "socketReply": "waterIsStopped",
+            "cmd": "stopWater",
+            "name": "stopwater",
+            "displayName": "Отключение воды"
           }
         ],
         "name": "chest"
       },
       {
-        "path": "COM9",
+        "path": "COM12",
         "actions": [
           {
             "socketEvent": "coffin.open",
             "socketReply": "coffinIsOpened",
             "cmd": "openCoffin",
             "name": "coffin",
-            "displayName": "Гроб открытие"
+            "displayName": "Открытие гроба"
           },
           {
             "socketEvent": "coffin.slide",
-            "socketReply": "coffinSlided",
+            "socketReply": "thirdDoorIsOpened",
             "cmd": "coffinSlide",
             "name": "coffin-slide",
-            "displayName": "Гроб движение"
+            "displayName": "Движение гроба"
           }
         ],
         "name": "coffin"
@@ -143,34 +143,7 @@
   "room4": {
     "ports": [
       {
-        "path": "COM11",
-        "actions": [
-          {
-            "socketEvent": "safe.open",
-            "socketReply": "safeIsOpened",
-            "cmd": "openSafe",
-            "name": "safe",
-            "displayName": "Сейф"
-          },
-          {
-            "socketEvent": "game.open",
-            "socketReply": "safeIsRaised",
-            "cmd": "game",
-            "name": "game",
-            "displayName": "Игра"
-          },
-          {
-            "socketEvent": "safe.down",
-            "socketReply": "safeIsDropped",
-            "cmd": "safeDown",
-            "name": "safeDown",
-            "displayName": "Сейф опускание"
-          }
-        ],
-        "name": "safePort"
-      },
-      {
-        "path": "COM10",
+        "path": "COM17",
         "actions": [
           {
             "socketEvent": "rack.open",
@@ -183,14 +156,34 @@
         "name": "rack"
       },
       {
-        "path": "COM12",
+        "path": "COM18",
         "actions": [
           {
-            "socketEvent": "cupboard.open",
-            "socketReply": "cupboardIsOpened",
-            "cmd": "openCupboard",
-            "name": "cupboard",
-            "displayName": "Шкаф"
+            "socketEvent": "safe.open",
+            "socketReply": "safeIsOpened",
+            "cmd": "openSafe",
+            "name": "safe",
+            "displayName": "Дверь сейфа"
+          },
+          {
+            "socketEvent": "safe.up",
+            "socketReply": "safeUpAllowed",
+            "cmd": "safeUp",
+            "name": "safeUp",
+            "displayName": "Поднятие сейфа"
+          }
+        ],
+        "name": "safePort"
+      },
+      {
+        "path": "COM8",
+        "actions": [
+          {
+            "socketEvent": "lion.open",
+            "socketReply": "lionIsOpened",
+            "cmd": "openLion",
+            "name": "lion",
+            "displayName": "Лев"
           },
           {
             "socketEvent": "door.open",
@@ -200,7 +193,7 @@
             "displayName": "Дверь 4"
           }
         ],
-        "name": "cupboard"
+        "name": "lion"
       }
     ],
     "name": "room4",
@@ -210,7 +203,34 @@
   "room5": {
     "ports": [
       {
-        "path": "COM13",
+        "path": "COM7",
+        "actions": [
+          {
+            "socketEvent": "rfid.accessed",
+            "socketReply": "",
+            "cmd": "rfidAccessed",
+            "name": "rfidCmd",
+            "displayName": "РФИД пройден"
+          },
+          {
+            "socketEvent": "water.flow",
+            "socketReply": "waterFlowed",
+            "cmd": "waterFlow",
+            "name": "water",
+            "displayName": "Стенд вода"
+          },
+          {
+            "socketEvent": "button.access",
+            "socketReply": "buttonAccessed",
+            "cmd": "accessToButton",
+            "name": "button",
+            "displayName": "Доступ к кнопке"
+          }
+        ],
+        "name": "pinpad"
+      },
+      {
+        "path": "COM6",
         "actions": [
           {
             "socketEvent": "lamp.switch",
@@ -232,36 +252,50 @@
             "cmd": "rfidAccess",
             "name": "rfidAccess",
             "displayName": "РФИД"
+          },
+          {
+            "socketEvent": "door.open",
+            "socketReply": "lastDoorIsOpened",
+            "cmd": "openDoor",
+            "name": "door5",
+            "displayName": "Дверь 5"
           }
         ],
         "name": "table"
       },
       {
-        "path": "COM14",
+        "path": "COM5",
         "actions": [
           {
-            "socketEvent": "rfid.accessed",
-            "socketReply": "",
-            "cmd": "rfidAccessed",
-            "name": "rfidCmd",
-            "displayName": "РФИД2"
+            "socketEvent": "motor1.on",
+            "socketReply": "motor1Started",
+            "cmd": "motor1",
+            "name": "motor1",
+            "displayName": "Колба 1"
           },
           {
-            "socketEvent": "water.flow",
-            "socketReply": "waterFlowed",
-            "cmd": "waterFlow",
-            "name": "water",
-            "displayName": "Стенд вода"
+            "socketEvent": "motor3.on",
+            "socketReply": "motor3Started",
+            "cmd": "motor3",
+            "name": "motor3",
+            "displayName": "Колба 2"
           },
           {
-            "socketEvent": "button.access",
-            "socketReply": "buttonAccessed",
-            "cmd": "accessToButton",
-            "name": "button",
-            "displayName": "Доступ к кнопке"
+            "socketEvent": "motor2.on",
+            "socketReply": "motor2Started",
+            "cmd": "motor2",
+            "name": "motor2",
+            "displayName": "Колба яд"
+          },
+          {
+            "socketEvent": "motors.back",
+            "socketReply": "motorsOnPlace",
+            "cmd": "motorsBack",
+            "name": "motorsBack",
+            "displayName": "Возварат колб"
           }
         ],
-        "name": "pinpad"
+        "name": "chemistry"
       }
     ],
     "name": "room5",
