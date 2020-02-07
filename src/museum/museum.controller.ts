@@ -4,8 +4,8 @@ import { Room2Gateway } from '../room2/room2.gateway';
 
 @Controller('museum')
 export class MuseumController {
-  private userLogin = 'admin';
-  private userPassword = 'qwerty';
+  private userLogin = 'Cеныч';
+  private userPassword = '07.08.95';
 
   constructor(private room2Gateway: Room2Gateway) {
   }
