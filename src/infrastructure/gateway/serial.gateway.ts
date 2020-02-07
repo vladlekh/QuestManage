@@ -7,7 +7,7 @@ import { SerialportService } from '../serialport';
 import { Parser } from '../../enums';
 import { IParserReply } from '../../interfaces';
 
-export function SerialGateway(roomName) {
+export function SerialGateway(roomName: string) {
   return class Gateway extends SerialportService implements OnGatewayInit, OnModuleInit {
     readonly room;
 
@@ -15,8 +15,8 @@ export function SerialGateway(roomName) {
       readonly portConfigService: PortConfigService,
       readonly emitterService: EmitterService,
     ) {
-      super(portConfigService.get(roomName).ports, emitterService);
-      this.room = portConfigService.get(roomName);
+      super(portConfigService.get()[roomName].ports, emitterService);
+      this.room = portConfigService.get()[roomName].ports;
     }
 
     server: Server;
@@ -25,7 +25,6 @@ export function SerialGateway(roomName) {
       this.portValuesToArray().forEach(({ port }) => {
         port.parser.on(Parser.reply, (data) => this.handlePortMsg(data));
       });
-      super.onModuleInit();
     }
 
     afterInit(server: Namespace): any {

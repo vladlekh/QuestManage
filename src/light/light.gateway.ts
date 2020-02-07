@@ -29,21 +29,18 @@ export class LightGateway {
 
   @SubscribeMessage('turn.light')
   async handleTurnLight() {
-    console.log('TURN LIGHT');
     await this.port.writeCmd('startQuest');
     await this.port2.writeCmd('startQuest');
   }
 
   @SubscribeMessage('switch.light')
   async handleSwitchLight() {
-    console.log('SWITCH LIGHT');
     await this.port.writeCmd('switchLight');
     await this.port2.writeCmd('switchLight');
   }
 
   @SubscribeMessage('reset')
   async handleResetLight() {
-    console.log('RESET LIGHT');
     await this.port.writeCmd('reset');
     await this.port2.writeCmd('reset');
   }

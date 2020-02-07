@@ -21,7 +21,7 @@ import { SoundModule } from './sound';
     Room3Module,
     Room4Module,
     Room5Module,
-    LightModule,
+    // LightModule,
     MuseumModule,
     SoundModule,
   ],

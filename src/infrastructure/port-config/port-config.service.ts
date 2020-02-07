@@ -18,8 +18,8 @@ export class PortConfigService {
       return [...acc, ...value.ports.map(({ path, name }) => ({ path, name }))];
     }, []);
   }
-
-  get(option?: string): IConfig {
+  get(): IConfig;
+  get<T>(option: string = ''): Partial<T> {
     return option ? dot.pick(option, this.config) : this.config;
   }
 }

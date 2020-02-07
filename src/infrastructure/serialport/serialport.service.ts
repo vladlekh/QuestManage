@@ -1,22 +1,17 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PortWithConfig } from '../../types/port-with-config';
-import { IConfigPort, IPortOptions } from '../../interfaces';
+import { IConfigPort } from '../../interfaces';
 import { EmitterService } from '../emitter';
 import { Port } from './port';
-import * as SerialPort from 'serialport';
-import Readline = SerialPort.parsers.Readline;
 
 @Injectable()
-export class SerialportService implements OnModuleInit {
+export class SerialportService {
   readonly ports = new Map<string, PortWithConfig>();
-  // readonly parser: Readline;
 
   constructor(
     options: IConfigPort[],
     readonly emitterService: EmitterService,
   ) {
-    // this.parser = new Readline({ delimiter: '\n' });
-
     options.forEach(option => {
       const port = new Port(option.path, {
         baudRate: 9600,
@@ -26,33 +21,7 @@ export class SerialportService implements OnModuleInit {
         ...option,
         port,
       });
-      // port.on('data', (data) => console.log('DATA', data));
-      // port.pipe(this.parser);
     });
-  }
-
-  onModuleInit(): any {
-    // const emitDisconnected = (e: string, path: string, name: string) => {
-    //   this.emitterService.emit('port_disconnected', { message: e, path, name });
-    // };
-    //
-    // const emitConnected = (path: string, name: string) => {
-    //   this.emitterService.emit('port_connected', { path, name });
-    // };
-    //
-    // // this.parser.on('data', data => {
-    // //   console.log('MSG', data);
-    // //   this.emitterService.emit(data);
-    // // });
-    // this.ports.forEach(({ port, path, name }) => {
-    //   port.on('open', () => emitConnected(path, name));
-    //   port.on('close', () => emitDisconnected('DISCONNECTED', path, name));
-    //   port.on('disconnected', (e) => emitDisconnected(e, path, name));
-    // });
-  }
-
-  onModuleDestroy(): any {
-    this.ports.forEach(({ port }) => port.disconnect());
   }
 
   write(command: string) {

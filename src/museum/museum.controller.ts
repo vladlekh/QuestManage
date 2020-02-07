@@ -5,7 +5,7 @@ import { Room2Gateway } from '../room2/room2.gateway';
 @Controller('museum')
 export class MuseumController {
   private userLogin = 'Cеныч';
-  private userPassword = '07.08.95';
+  private userPassword = '070895';
 
   constructor(private room2Gateway: Room2Gateway) {
   }
@@ -25,8 +25,8 @@ export class MuseumController {
 
   @Post('stand')
   async stand(@Res() res): Promise<void> {
-    await this.room2Gateway.write('stopSignaling');
     await this.room2Gateway.write('openStand');
+    setTimeout(async () => await this.room2Gateway.write('stopSignaling'), 2000);
     res.sendStatus(200);
   }
 }

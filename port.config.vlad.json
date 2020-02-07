@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "COM10",
+        "path": "COM14",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "COM9",
+        "path": "COM10",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -35,7 +35,7 @@
   "room2": {
     "ports": [
       {
-        "path": "COM8",
+        "path": "COM9",
         "actions": [
           {
             "socketEvent": "stand.open",
@@ -64,19 +64,12 @@
             "cmd": "signaling",
             "name": "signaling",
             "displayName": "Включение сигнализации"
-          },
-          {
-            "socketEvent": "signaling.stop",
-            "socketReply": "lightSignalingIsStopped",
-            "cmd": "stopSignaling",
-            "name": "signalingstop",
-            "displayName": "Отключение сигнализации"
           }
         ],
         "name": "standPort"
       },
       {
-        "path": "COM7",
+        "path": "COM11",
         "actions": [
           {
             "socketEvent": "door2.open",
@@ -96,7 +89,7 @@
   "room3": {
     "ports": [
       {
-        "path": "COM5",
+        "path": "COM15",
         "actions": [
           {
             "socketEvent": "chest.open",
@@ -123,7 +116,7 @@
         "name": "chest"
       },
       {
-        "path": "COM4",
+        "path": "COM12",
         "actions": [
           {
             "socketEvent": "coffin.open",
@@ -150,7 +143,7 @@
   "room4": {
     "ports": [
       {
-        "path": "COM6",
+        "path": "COM17",
         "actions": [
           {
             "socketEvent": "rack.open",
@@ -163,7 +156,7 @@
         "name": "rack"
       },
       {
-        "path": "COM17",
+        "path": "COM18",
         "actions": [
           {
             "socketEvent": "safe.open",
@@ -183,7 +176,7 @@
         "name": "safePort"
       },
       {
-        "path": "COM15",
+        "path": "COM8",
         "actions": [
           {
             "socketEvent": "lion.open",
@@ -210,7 +203,7 @@
   "room5": {
     "ports": [
       {
-        "path": "COM16",
+        "path": "COM7",
         "actions": [
           {
             "socketEvent": "rfid.accessed",
@@ -221,7 +214,7 @@
           },
           {
             "socketEvent": "water.flow",
-            "socketReply": "waterStandFlowed",
+            "socketReply": "waterFlowed",
             "cmd": "waterFlow",
             "name": "water",
             "displayName": "Стенд вода"
@@ -237,7 +230,7 @@
         "name": "pinpad"
       },
       {
-        "path": "COM14",
+        "path": "COM6",
         "actions": [
           {
             "socketEvent": "lamp.switch",
@@ -271,7 +264,7 @@
         "name": "table"
       },
       {
-        "path": "COM12",
+        "path": "COM5",
         "actions": [
           {
             "socketEvent": "motor1.on",
