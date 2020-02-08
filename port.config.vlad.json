@@ -45,6 +45,13 @@
             "displayName": "Стенд"
           },
           {
+            "socketEvent": "stand.close",
+            "socketReply": "standIsClosed",
+            "cmd": "closeStand",
+            "name": "closestand",
+            "displayName": "Закрытие стенда"
+          },
+          {
             "socketEvent": "picture.open",
             "socketReply": "pictureIsOpened",
             "cmd": "openPicture",
@@ -174,6 +181,13 @@
           },
           {
             "socketEvent": "safe.up",
+            "socketReply": "safeDownAllowed",
+            "cmd": "safeDown",
+            "name": "safeDown",
+            "displayName": "Опускание сейфа"
+          },
+          {
+            "socketEvent": "safe.up",
             "socketReply": "safeUpAllowed",
             "cmd": "safeUp",
             "name": "safeUp",
@@ -198,6 +212,13 @@
             "cmd": "openDoor",
             "name": "door4",
             "displayName": "Дверь 4"
+          },
+          {
+            "socketEvent": "door.close",
+            "socketReply": "fourthDoorIsClosed",
+            "cmd": "closeDoor",
+            "name": "door4close",
+            "displayName": "Закрытие двери 4"
           }
         ],
         "name": "lion"

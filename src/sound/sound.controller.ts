@@ -32,6 +32,11 @@ export class SoundController {
         displayName: 'Комната 5',
         endpoint: 'room5',
       },
+      {
+        name: 'signaling',
+        displayName: 'Сигнализация',
+        endpoint: 'signaling',
+      },
     ];
   }
 

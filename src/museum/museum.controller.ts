@@ -4,7 +4,7 @@ import { Room2Gateway } from '../room2/room2.gateway';
 
 @Controller('museum')
 export class MuseumController {
-  private userLogin = 'Cеныч';
+  private userLogin = 'Сеныч';
   private userPassword = '070895';
 
   constructor(private room2Gateway: Room2Gateway) {
@@ -12,7 +12,9 @@ export class MuseumController {
 
   @Post('login')
   login(@Body() loginUserDto: LoginUserDto, @Res() res): void {
-    loginUserDto.login === this.userLogin && loginUserDto.password === this.userPassword
+    console.log('MUSEUM LOGIN', loginUserDto.login);
+    console.log('MUSEUM PASSWORD', loginUserDto.password);
+    loginUserDto.login.trim() === this.userLogin && loginUserDto.password .trim() === this.userPassword
       ? res.sendStatus(200)
       : res.sendStatus(403);
   }
