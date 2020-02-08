@@ -16,7 +16,7 @@ export function SerialGateway(roomName: string) {
       readonly emitterService: EmitterService,
     ) {
       super(portConfigService.get()[roomName].ports, emitterService);
-      this.room = portConfigService.get()[roomName].ports;
+      this.room = portConfigService.get()[roomName];
     }
 
     server: Server;

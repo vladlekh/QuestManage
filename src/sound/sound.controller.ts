@@ -83,4 +83,46 @@ export class SoundController {
     const fileReadStream = fs.createReadStream('assets/room5.mp3');
     fileReadStream.pipe(res);
   }
+
+  @Get('bricks')
+  @UseInterceptors(CacheInterceptor)
+  bricksSound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/bricks.mp3');
+    fileReadStream.pipe(res);
+  }
+
+  @Get('coffin-slide')
+  @UseInterceptors(CacheInterceptor)
+  coffinSlideSound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/coffin-slide.mp3');
+    fileReadStream.pipe(res);
+  }
+
+  @Get('signaling')
+  @UseInterceptors(CacheInterceptor)
+  signalingSound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/signaling.mp3');
+    fileReadStream.pipe(res);
+  }
+
+  @Get('lock')
+  @UseInterceptors(CacheInterceptor)
+  lockSound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/lock.mp3');
+    fileReadStream.pipe(res);
+  }
+
+  @Get('lock2')
+  @UseInterceptors(CacheInterceptor)
+  lock2Sound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/lock2.mp3');
+    fileReadStream.pipe(res);
+  }
+
+  @Get('lion')
+  @UseInterceptors(CacheInterceptor)
+  lionSound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/lion.mp3');
+    fileReadStream.pipe(res);
+  }
 }

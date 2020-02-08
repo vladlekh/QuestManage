@@ -2,7 +2,7 @@
   "room1": {
     "ports": [
       {
-        "path": "COM14",
+        "path": "COM17",
         "actions": [
           {
             "socketEvent": "box.open",
@@ -15,7 +15,7 @@
         "name": "boxPort"
       },
       {
-        "path": "COM10",
+        "path": "COM12",
         "actions": [
           {
             "socketEvent": "door.open",
@@ -35,7 +35,7 @@
   "room2": {
     "ports": [
       {
-        "path": "COM9",
+        "path": "COM15",
         "actions": [
           {
             "socketEvent": "stand.open",
@@ -60,10 +60,17 @@
           },
           {
             "socketEvent": "signaling.light",
-            "socketReply": "signalingOn",
+            "socketReply": "lightSignaling",
             "cmd": "signaling",
             "name": "signaling",
             "displayName": "Включение сигнализации"
+          },
+          {
+            "socketEvent": "signaling.stop",
+            "socketReply": "lightSignalingIsStopped",
+            "cmd": "stopSignaling",
+            "name": "signalingstop",
+            "displayName": "Отключение сигнализации"
           }
         ],
         "name": "standPort"
@@ -89,14 +96,14 @@
   "room3": {
     "ports": [
       {
-        "path": "COM15",
+        "path": "COM9",
         "actions": [
           {
             "socketEvent": "chest.open",
             "socketReply": "chestIsOpened",
             "cmd": "openChest",
             "name": "chest",
-            "displayName": "Сендук"
+            "displayName": "Сундук"
           },
           {
             "socketEvent": "water.flow",
@@ -116,7 +123,7 @@
         "name": "chest"
       },
       {
-        "path": "COM12",
+        "path": "COM10",
         "actions": [
           {
             "socketEvent": "coffin.open",
@@ -143,7 +150,7 @@
   "room4": {
     "ports": [
       {
-        "path": "COM17",
+        "path": "COM14",
         "actions": [
           {
             "socketEvent": "rack.open",
