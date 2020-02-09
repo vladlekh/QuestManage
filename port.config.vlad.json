@@ -180,7 +180,7 @@
             "displayName": "Дверь сейфа"
           },
           {
-            "socketEvent": "safe.up",
+            "socketEvent": "safe.down",
             "socketReply": "safeDownAllowed",
             "cmd": "safeDown",
             "name": "safeDown",
