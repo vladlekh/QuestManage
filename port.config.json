@@ -180,7 +180,7 @@
             "displayName": "Дверь сейфа"
           },
           {
-            "socketEvent": "safe.up",
+            "socketEvent": "safe.down",
             "socketReply": "safeDownAllowed",
             "cmd": "safeDown",
             "name": "safeDown",
@@ -245,7 +245,14 @@
             "socketReply": "waterStandFlowed",
             "cmd": "waterFlow",
             "name": "water",
-            "displayName": "Стенд вода"
+            "displayName": "Включение стенда вода"
+          },
+          {
+            "socketEvent": "water.stop",
+            "socketReply": "waterIsStopped",
+            "cmd": "stopWater",
+            "name": "waterstop",
+            "displayName": "Отключение стенда вода"
           },
           {
             "socketEvent": "button.access",

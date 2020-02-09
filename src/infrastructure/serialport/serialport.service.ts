@@ -3,6 +3,7 @@ import { PortWithConfig } from '../../types/port-with-config';
 import { IConfigPort } from '../../interfaces';
 import { EmitterService } from '../emitter';
 import { Port } from './port';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class SerialportService {
@@ -11,6 +12,7 @@ export class SerialportService {
   constructor(
     options: IConfigPort[],
     readonly emitterService: EmitterService,
+    readonly loggerService: LoggerService,
   ) {
     options.forEach(option => {
       const port = new Port(option.path, {
@@ -38,6 +40,7 @@ export class SerialportService {
       return Promise.resolve();
     }
 
+    this.loggerService.logArduinoCommand(existingPort, command);
     return existingPort.writeCmd(command);
   }
 

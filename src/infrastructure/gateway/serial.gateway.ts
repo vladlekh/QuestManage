@@ -6,6 +6,7 @@ import { Namespace, Server } from 'socket.io';
 import { SerialportService } from '../serialport';
 import { Parser } from '../../enums';
 import { IParserReply } from '../../interfaces';
+import { LoggerService } from '../logger/logger.service';
 
 export function SerialGateway(roomName: string) {
   return class Gateway extends SerialportService implements OnGatewayInit, OnModuleInit {
@@ -14,8 +15,9 @@ export function SerialGateway(roomName: string) {
     constructor(
       readonly portConfigService: PortConfigService,
       readonly emitterService: EmitterService,
+      readonly loggerService: LoggerService,
     ) {
-      super(portConfigService.get()[roomName].ports, emitterService);
+      super(portConfigService.get()[roomName].ports, emitterService, loggerService);
       this.room = portConfigService.get()[roomName];
     }
 
@@ -32,12 +34,12 @@ export function SerialGateway(roomName: string) {
         this.room.ports.forEach(({ actions }) => {
           actions.forEach(({ socketEvent, cmd }) => {
             socket.on(socketEvent, async () => {
-              console.log('CMD ==>', cmd);
               this.write(cmd);
             });
           });
         });
         socket.on('set.persons', this.handleSetPersons);
+        socket.on('start.quest', this.handleStartQuest);
         socket.on('reset', this.handleReset);
       }));
       const emitDisconnected = (e: string, path: string, name: string) => {
@@ -54,8 +56,13 @@ export function SerialGateway(roomName: string) {
       });
     }
 
+    handleStartQuest = async () => {
+      console.log('START QUEST');
+      await this.globalWrite(`startQuest`);
+    };
+
     handlePortMsg = ({ message, path }: IParserReply) => {
-      console.log('REPLY ==>', message);
+      this.loggerService.logArduinoMessage({ message, path });
       this.server.emit(message, { path });
     };
 
