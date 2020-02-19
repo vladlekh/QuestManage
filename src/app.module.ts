@@ -12,11 +12,12 @@ import { Room4Module } from './room4';
 import { MuseumModule } from './museum';
 import { SoundModule } from './sound';
 import { LoggerModule } from './infrastructure/logger/logger.module';
+import { AdminModule } from './admin';
 
 @Module({
   imports: [
     EmitterModule,
-    PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.vlad.json')),
+    PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.json')),
     Room1Module,
     Room2Module,
     Room3Module,
@@ -25,6 +26,7 @@ import { LoggerModule } from './infrastructure/logger/logger.module';
     // LightModule,
     MuseumModule,
     SoundModule,
+    AdminModule,
   ],
   controllers: [AppController],
 })

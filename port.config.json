@@ -164,7 +164,14 @@
             "socketReply": "rackIsOpened",
             "cmd": "openRack",
             "name": "rack",
-            "displayName": "Полка"
+            "displayName": "Открытие полки"
+          },
+          {
+            "socketEvent": "rack.close",
+            "socketReply": "rackIsClosed",
+            "cmd": "closeRack",
+            "name": "closeRack",
+            "displayName": "Закрытие полки"
           }
         ],
         "name": "rack"
@@ -336,5 +343,17 @@
     "name": "room5",
     "socketNamespace": "room5",
     "displayName": "5 комната"
+  },
+  "admin": {
+    "ports": [
+      {
+        "path": "COM25",
+        "actions": [],
+        "name": "adminRFID"
+      }
+    ],
+    "name": "admin",
+    "socketNamespace": "admin",
+    "displayName": "Администратор"
   }
 }

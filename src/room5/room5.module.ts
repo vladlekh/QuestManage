@@ -5,6 +5,7 @@ import { LoggerModule } from '../infrastructure/logger/logger.module';
 @Module({
   imports: [LoggerModule],
   providers: [Room5Gateway],
+  exports: [Room5Gateway],
 })
 export class Room5Module {
 }
