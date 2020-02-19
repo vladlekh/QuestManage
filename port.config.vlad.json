@@ -329,5 +329,17 @@
     "name": "room5",
     "socketNamespace": "room5",
     "displayName": "5 комната"
+  },
+  "admin": {
+    "ports": [
+      {
+        "path": "COM16",
+        "actions": [],
+        "name": "adminRFID"
+      }
+    ],
+    "name": "admin",
+    "socketNamespace": "admin",
+    "displayName": "Администратор"
   }
 }
