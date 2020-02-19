@@ -17,7 +17,7 @@ import { AdminModule } from './admin';
 @Module({
   imports: [
     EmitterModule,
-    PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.vlad.json')),
+    PortConfigModule.load(path.resolve(__dirname, '..', 'port.config.json')),
     Room1Module,
     Room2Module,
     Room3Module,

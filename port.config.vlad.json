@@ -165,6 +165,13 @@
             "cmd": "openRack",
             "name": "rack",
             "displayName": "Полка"
+          },
+          {
+            "socketEvent": "rack.close",
+            "socketReply": "rackIsClosed",
+            "cmd": "closeRack",
+            "name": "closeRack",
+            "displayName": "Закрытие полки"
           }
         ],
         "name": "rack"
