@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IParserReply } from '../../interfaces';
 import { Port } from '../serialport/port';
 import { LoggerGateway } from './logger.gateway';
+import { LoginUserDto } from '../../dto';
 
 @Injectable()
 export class LoggerService {
@@ -33,6 +34,13 @@ export class LoggerService {
     const message = `Команда от администратора: ${command}`;
     console.log(`${port.path}: ${message}`);
     this.loggerGateway.emit(message, port.path);
+  }
+
+  logMuseumData({ login, password }: LoginUserDto) {
+    let message = `Логин музея: ${login}`;
+    this.loggerGateway.emit(message, 'museum');
+    message = `Пароль музея: ${password}`;
+    this.loggerGateway.emit(message, 'museum');
   }
 
   logArduinoMessage({ message, path}: IParserReply) {

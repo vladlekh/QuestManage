@@ -11,7 +11,6 @@ import { Room3Module } from './room3';
 import { Room4Module } from './room4';
 import { MuseumModule } from './museum';
 import { SoundModule } from './sound';
-import { LoggerModule } from './infrastructure/logger/logger.module';
 import { AdminModule } from './admin';
 
 @Module({
@@ -23,7 +22,7 @@ import { AdminModule } from './admin';
     Room3Module,
     Room4Module,
     Room5Module,
-    // LightModule,
+    LightModule,
     MuseumModule,
     SoundModule,
     AdminModule,
