@@ -30,7 +30,7 @@
     "@types/serialport": "^7.0.4",
     "cache-manager": "^2.10.1",
     "dot-object": "^1.7.1",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "nestjs-config": "^1.4.2",
     "node-cmd": "^3.0.0",
     "reflect-metadata": "^0.1.12",
