@@ -130,4 +130,11 @@ export class SoundController {
     const fileReadStream = fs.createReadStream('assets/lion.mp3');
     fileReadStream.pipe(res);
   }
+
+  @Get('water')
+  @UseInterceptors(CacheInterceptor)
+  waterSound(@Res() res) {
+    const fileReadStream = fs.createReadStream('assets/water.mp3');
+    fileReadStream.pipe(res);
+  }
 }
