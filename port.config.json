@@ -110,7 +110,7 @@
             "socketReply": "chestIsOpened",
             "cmd": "openChest",
             "name": "chest",
-            "displayName": "Сендук"
+            "displayName": "Сундук"
           },
           {
             "socketEvent": "water.flow",
@@ -335,6 +335,20 @@
             "cmd": "motorsBack",
             "name": "motorsBack",
             "displayName": "Возварат колб"
+          },
+          {
+            "socketEvent": "acid",
+            "socketReply": "Acid",
+            "cmd": "motorsBack",
+            "name": "acid",
+            "displayName": "Яд"
+          },
+          {
+            "socketEvent": "anti.acid",
+            "socketReply": "Anti-Acid",
+            "cmd": "antiAcid",
+            "name": "anti-acid",
+            "displayName": "Противоядие"
           }
         ],
         "name": "chemistry"
