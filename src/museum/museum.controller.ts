@@ -29,7 +29,7 @@ export class MuseumController {
 
   @Post('stand')
   async stand(@Res() res): Promise<void> {
-    await this.room2Gateway.write('openStand');
+    // await this.room2Gateway.write('openStand');
     setTimeout(async () => await this.room2Gateway.write('stopSignaling'), 2000);
     res.sendStatus(200);
   }
